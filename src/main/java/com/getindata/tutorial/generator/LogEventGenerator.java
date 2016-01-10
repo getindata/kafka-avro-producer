@@ -2,8 +2,6 @@ package com.getindata.tutorial.generator;
 
 import com.getindata.tutorial.avro.LogEvent;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 final class LogEventGenerator {
@@ -22,14 +20,14 @@ final class LogEventGenerator {
     LogEvent.Builder logEventBuilder = LogEvent.newBuilder()
         .setDuration(getSongDuration()).setServer(pickServer())
         .setSongid(getRandomSongId()).setUserid(getRandomUserId())
-        .setTimestamp(getCurrentIsoTime())
+        .setTimestamp(getCurrentTime())
         .setName(pickEvent());
 
     return logEventBuilder.build();
   }
 
-  private String getCurrentIsoTime() {
-    return ZonedDateTime.now().format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+  private long getCurrentTime() {
+    return System.currentTimeMillis();
   }
 
   private String pickServer() {
